@@ -7,10 +7,10 @@
 
 #include <boost/python/list.hpp>
 
-class RPiInterfaceServer
+class Bus
 {
 public:
-    RPiInterfaceServer();
+    Bus();
     int i2c_write(int sa, boost::python::list& ns);
     std::vector<unsigned char> i2c_read(int sa, int sz);
     void wait(int usec);

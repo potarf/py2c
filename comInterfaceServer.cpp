@@ -6,7 +6,7 @@
 
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
-RPiInterfaceServer::RPiInterfaceServer() : i2c()
+Bus::Bus() : i2c()
 {
 }
 
@@ -37,7 +37,7 @@ void printCom(int err, int sa,  char buf[], int sz, char type, int i )
     fflush(out);
 }
 
-int RPiInterfaceServer::i2c_write(int sa, boost::python::list& ns)
+int Bus::i2c_write(int sa, boost::python::list& ns)
 {
     const int size = boost::python::len(ns);
     
@@ -58,7 +58,7 @@ int RPiInterfaceServer::i2c_write(int sa, boost::python::list& ns)
     return errno_;
 }
 
-std::vector<unsigned char> RPiInterfaceServer::i2c_read(int sa, int sz)
+std::vector<unsigned char> Bus::i2c_read(int sa, int sz)
 {
     char* buf = new char[sz+1];
 
@@ -82,16 +82,16 @@ std::vector<unsigned char> RPiInterfaceServer::i2c_read(int sa, int sz)
     return retval;
 }
 
-void RPiInterfaceServer::wait(int usec)
+void Bus::wait(int usec)
 {
     usleep(usec);
 }
 
-BOOST_PYTHON_MODULE(RPiInterfaceServer)
+BOOST_PYTHON_MODULE(py2c)
 {
     using namespace boost::python;
 
     class_<std::vector<unsigned char>>("CharList").def(vector_indexing_suite<std::vector<unsigned char>>() );
 
-    class_<RPiInterfaceServer>("RPiInterfaceServer").def("i2c_write", &RPiInterfaceServer::i2c_write).def("i2c_read", &RPiInterfaceServer::i2c_read).def("wiite", &RPiInterfaceServer::wait);
+    class_<Bus>("Bus").def("i2c_write", &Bus::i2c_write).def("i2c_read", &Bus::i2c_read).def("wiite", &Bus::wait);
 }
