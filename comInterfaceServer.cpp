@@ -93,5 +93,5 @@ BOOST_PYTHON_MODULE(py2c)
 
     class_<std::vector<unsigned char>>("CharList").def(vector_indexing_suite<std::vector<unsigned char>>() );
 
-    class_<Bus>("Bus").def("i2c_write", &Bus::i2c_write).def("i2c_read", &Bus::i2c_read).def("wiite", &Bus::wait);
+    class_<Bus>("Bus").def("i2c_write", &Bus::i2c_write).def("i2c_read", &Bus::i2c_read).def("wait", &Bus::wait);
 }
