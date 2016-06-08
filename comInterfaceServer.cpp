@@ -51,7 +51,7 @@ int Bus::i2c_write(int sa, boost::python::list& ns)
         i2c.setAddress(sa);
         i2c.send((unsigned char *)buf, size);
         errno_ = i2c.fail();
-    } while ((errno_) && ++i < 19 && !usleep((i < 10)?1000:10000));
+    } while ((errno_) && !usleep((i < 10)?1000:10000) && i++ < 18);
 
     printCom(errno_,sa, buf,size,'w', i);
 
