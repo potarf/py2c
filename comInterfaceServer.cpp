@@ -69,7 +69,7 @@ std::vector<unsigned char> Bus::i2c_read(int sa, int sz)
         i2c.receive((unsigned char *)buf, sz);
 
         errno_ = i2c.fail();
-    } while (errno_ && ++i < 19 && !usleep((i < 10)?1000:10000));
+    } while (errno_ && !usleep((i < 10)?1000:10000) && i++ < 18);
 
     printCom(errno_,sa, buf,sz,'r', i);
 
