@@ -74,7 +74,9 @@ std::vector<unsigned char> Bus::i2c_read(int sa, int sz)
     printCom(errno_,sa, buf,sz,'r', i);
 
     std::vector<unsigned char> retval;
-
+    char* cherrno_;
+    sprintf(cherrno_, "%i", errno_);
+    retval.push_back( static_cast<unsigned char>(cherrno_[0]) - 48);
     for(int i = 0; i < sz; ++i) retval.push_back(static_cast<unsigned char>(buf[i]));
 
     delete [] buf;
